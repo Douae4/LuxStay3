@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Jewelry - Boutique de Bijoux Élégants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5DC; /* Blanc cassé */
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Navigation fixe */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #A8B5A0; /* Vert sauge */
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+        nav a {
+            color: #F5F5DC;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #D4AF37; /* Doré clair */
+        }
+        /* Sections */
+        section {
+            padding: 100px 0 50px;
+            min-height: 100vh;
+        }
+        /* Accueil */
+        #accueil {
+            background: linear-gradient(to bottom, #F5F5DC, #A8B5A0);
+        }
+        .banner {
+            text-align: center;
+            padding: 50px 0;
+            background-image: url('https://via.placeholder.com/1200x400/cccccc/000000?text=Jewelry+Banner'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
+            color: #F5F5DC;
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+        .banner h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+        .product-info h3 {
+            margin-bottom: 10px;
+            color: #A8B5A0;
+        }
+        .product-info p {
+            font-size: 1.2em;
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background-color: #A8B5A0;
+            color: #F5F5DC;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #D4AF37;
+        }
+        /* Connexion */
+        #connexion {
+            background-color: #F5F5DC;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #A8B5A0;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #A8B5A0;
+            border-radius: 5px;
+        }
+        /* Panier */
+        #panier {
+            background-color: #A8B5A0;
+            color: #F5F5DC;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #F5F5DC;
+            color: #333;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .cart-item-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+        .quantity button {
+            background: #A8B5A0;
+            color: #F5F5DC;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .total {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        /* Checkout */
+        #checkout {
+            background-color: #F5F5DC;
+        }
+        .checkout-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .checkout-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .checkout-form input {
+            margin-bottom: 10px;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #A8B5A0;
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+            .products {
+                grid-template-columns: 1fr;
+            }
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#accueil">Accueil</a>
+            <a href="#connexion">Connexion</a>
+            <a href="#panier">Panier</a>
+            <a href="#checkout">Checkout</a>
+        </nav>
+    </header>
+
+    <section id="accueil" class="container">
+        <div class="banner">
+            <h1>Beauty Jewelry</h1>
+            <p>Shine with Elegance</p>
+        </div>
+        <div class="products">
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Necklace" alt="Necklace">
+                <div class="product-info">
+                    <h3>Collier Élégant</h3>
+                    <p>€150</p>
+                    <button class="btn add-to-cart" data-name="Collier Élégant" data-price="150" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Necklace">Commander</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Earrings" alt="Earrings">
+                <div class="product-info">
+                    <h3>Boucles d'Oreilles</h3>
+                    <p>€80</p>
+                    <button class="btn add-to-cart" data-name="Boucles d'Oreilles" data-price="80" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Earrings">Commander</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Bracelet" alt="Bracelet">
+                <div class="product-info">
+                    <h3>Bracelet Raffiné</h3>
+                    <p>€120</p>
+                    <button class="btn add-to-cart" data-name="Bracelet Raffiné" data-price="120" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Bracelet">Commander</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Ring" alt="Ring">
+                <div class="product-info">
+                    <h3>Bague Brillante</h3>
+                    <p>€200</p>
+                    <button class="btn add-to-cart" data-name="Bague Brillante" data-price="200" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Ring">Commander</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Anklet" alt="Anklet">
+                <div class="product-info">
+                    <h3>Chevillère Délicate</h3>
+                    <p>€60</p>
+                    <button class="btn add-to-cart" data-name="Chevillère Délicate" data-price="60" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Anklet">Commander</button>
+                </div>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x200/cccccc/000000?text=Brooch" alt="Brooch">
+                <div class="product-info">
+                    <h3>Broche Classique</h3>
+                    <p>€90</p>
+                    <button class="btn add-to-cart" data-name="Broche Classique" data-price="90" data-image="https://via.placeholder.com/300x200/cccccc/000000?text=Brooch">Commander</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="connexion" class="container">
+        <h2 style="text-align: center; margin-bottom: 30px; color: #A8B5A0;">Connexion</h2>
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="panier" class="container">
+        <h2 style="text-align: center; margin-bottom: 30px;">Panier</h2>
+        <div id="cart-items"></div>
+        <div class="total">Total: €<span id="total-price">0</span></div>
+        <button class="btn" onclick="scrollToCheckout()">Passer au paiement</button>
+    </section>
+
+    <section id="checkout" class="container">
+        <h2 style="text-align: center; margin-bottom: 30px; color: #A8B5A0;">Checkout</h2>
+        <div class="checkout-form">
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="first-name">Prénom</label>
+                    <input type="text" id="first-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Nom</label>
+                    <input type="text" id="last-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkout-email">Email</label>
+                    <input type="email" id="checkout-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Numéro de carte</label>
+                    <input type="text" id="card-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Adresse</label>
+                    <input type="text" id="address" required>
+                </div>
+                <button type="submit" class="btn">Payer maintenant</button>
+            </form>
+            <div class="success-message" id="success-message">Merci pour votre achat !</div>
+        </div>
+    </section>
+
+    <script>
+        // Gestion du panier avec localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Fonction pour ajouter au panier
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.dataset.name;
+                const price = parseFloat(button.dataset.price);
+                const image = button.dataset.image;
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name, price, image, quantity: 1 });
+                }
+                saveCart();
+                updateCartDisplay();
+                alert('Produit ajouté au panier !');
+            });
+        });
+
+        // Sauvegarder le panier
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Mettre à jour l'affichage du panier
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h3>${item.name}</h3>
+                        <p>€${item.price}</p>
+                        <div class="quantity">
+                            <button onclick="changeQuantity(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="removeItem(${index})">Supprimer</button>
+                `;
+                cartItems.appendChild(itemDiv);
+            });
+            document.getElementById('total-price').textContent = total.toFixed(2);
+        }
+
+        // Changer la quantité
+        function changeQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            saveCart();
+            updateCartDisplay();
+        }
+
+        // Supprimer un item
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartDisplay();
+        }
+
+        // Scroll vers checkout
+        function scrollToCheckout() {
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Gestion du formulaire de paiement
+        document.getElementById('payment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('success-message').style.display = 'block';
+            cart = [];
+            saveCart();
+            updateCartDisplay();
+        });
+
+        // Initialiser l'affichage du panier
+        updateCartDisplay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LuxStay - The Perfect Home</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f5f0ea;
+      color: #3e3028;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+    }
+
+    header h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: #3e3028;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin: 0 15px;
+      color: #3e3028;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #c49b63;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+     
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.1);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #ffffff;
+    }
+
+    .hero-content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 70px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .hero-content p {
+      font-size: 20px;
+      margin-top: 15px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .hero-content button {
+      margin-top: 40px;
+      padding: 14px 42px;
+      border: none;
+      border-radius: 50px;
+      background-color: #3e3028;
+      color: #f5f0ea;
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.3s;
+    }
+
+    .hero-content button:hover {
+      background-color: #c49b63;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* --- ABOUT SECTION --- */
+    section {
+      min-height: 100vh;
+      padding: 120px 80px;
+    }
+
+    .about {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .about img {
+      width: 50%;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transform: translateX(-80px);
+      opacity: 0;
+    }
+
+    .about .text {
+      flex: 1;
+      opacity: 0;
+      transform: translateX(80px);
+    }
+
+    .about h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      color: #3e3028;
+    }
+
+    .about p {
+      margin-top: 15px;
+      color: #5b4a3b;
+      line-height: 1.6;
+      font-size: 18px;
+    }
+
+    /* --- NOS MAISONS SECTION --- */
+    .houses {
+      background-color: #ffffff;
+      text-align: center;
+    }
+
+    .houses h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      color: #3e3028;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .houses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .house-item {
+      background-color: #f5f0ea;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .house-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .house-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .house-item h4 {
+      font-size: 24px;
+      margin: 20px 0 10px;
+      color: #3e3028;
+    }
+
+    .house-item p {
+      color: #5b4a3b;
+      padding: 0 20px 20px;
+      line-height: 1.6;
+    }
+
+    /* --- SERVICES SECTION --- */
+    .services {
+      background-color: #3e3028;
+      color: #f5f0ea;
+      text-align: center;
+    }
+
+    .services h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .service-item {
+      padding: 40px 20px;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .service-item:hover {
+      background-color: rgba(196,155,99,0.2);
+    }
+
+    .service-item h4 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .service-item p {
+      line-height: 1.6;
+    }
+
+    /* --- CONTACT SECTION --- */
+    .contact {
+      background-color: #f5f0ea;
+      text-align: center;
+    }
+
+    .contact h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      color: #3e3028;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #c49b63;
+      border-radius: 10px;
+      font-family: "Poppins", sans-serif;
+      font-size: 16px;
+    }
+
+    .contact-form button {
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      background-color: #3e3028;
+      color: #f5f0ea;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #c49b63;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: #3e3028;
+      color: #f5f0ea;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>LuxStay</h1>
+    <nav>
+      <a href="#hero">Accueil</a>
+      <a href="#houses">Nos Maisons</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h2>The Perfect Home Awaits You</h2>
+      <p>Live the luxury. Feel the comfort.</p>
+      <button>Start Exploring</button>
+    </div>
+  </section>
+
+  <section class="about">
+    <img src="modern house 2.jpg" alt="Modern House">
+    <div class="text">
+      <h3>Unique Design & Comfort</h3>
+      <p>Each home we design blends architectural mastery with natural elegance. Our mission is to craft living spaces that connect comfort, light, and modern sophistication.</p>
+    </div>
+  </section>
+
+  <section class="houses" id="houses">
+    <h3>Nos Maisons</h3>
+    <div class="houses-grid">
+      <div class="house-item">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=400&q=80" alt="Maison Moderne 1">
+        <h4>Villa Élégante</h4>
+        <p>Une villa spacieuse avec piscine et jardin privé, parfaite pour une vie luxueuse.</p>
+      </div>
+      <div class="house-item">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=400&q=80" alt="Maison Moderne 2">
+        <h4>Appartement Urbain</h4>
+        <p>Un appartement moderne en centre-ville, avec vue panoramique et équipements haut de gamme.</p>
+      </div>
+      <div class="house-item">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80" alt="Maison Moderne 3">
+        <h4>Maison Familiale</h4>
+        <p>Une maison chaleureuse avec chambres spacieuses et espaces extérieurs pour toute la famille.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <h3>Nos Services</h3>
+    <div class="services-grid">
+      <div class="service-item">
+        <h4>Design Architecturale</h4>
+        <p>Nous créons des plans sur mesure pour des maisons uniques et fonctionnelles.</p>
+      </div>
+      <div class="service-item">
+        <h4>Construction Personnalisée</h4>
+        <p>De la fondation à la finition, nous assurons une construction de qualité supérieure.</p>
+      </div>
+      <div class="service-item">
+        <h4>Aménagement Intérieur</h4>
+        <p>Des intérieurs élégants et confortables adaptés à votre style de vie.</p>
+      </div>
+      <div class="service-item">
+        <h4>Conseil Immobilier</h4>
+        <p>Accompagnement pour l'achat, la vente ou la location de propriétés de luxe.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h3>Contactez-Nous</h3>
+    <form class="contact-form">
+      <input type="text" placeholder="Votre Nom" required>
+      <input type="email" placeholder="Votre Email" required>
+      <textarea rows="5" placeholder="Votre Message" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 LuxStay — Designed with elegance & passion.
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Intro Animation
+    gsap.to(".hero-content h2", {duration: 1.2, opacity: 1, y: 0, ease: "power4.out"});
+    gsap.to(".hero-content p", {duration: 1.2, opacity: 1, y: 0, delay: 0.4, ease: "power4.out"});
+    gsap.to(".hero-content button", {duration: 1.2, opacity: 1, y: 0, delay: 0.8, ease: "power4.out"});
+
+    // Parallax effect for background
+    window.addEventListener("scroll", function() {
+      const scrollY = window.scrollY;
+      document.getElementById("hero").style.backgroundPositionY = `${scrollY * 0.4}px`;
+    });
+
+    // Scroll animations for "About" section
+    gsap.to(".about img", {
+      scrollTrigger: {
+        trigger: ".about img",
+        start: "top 85%",
+      },
+      x: 0,
+      opacity: 1,
+      duration: 1.2,
+      ease: "power4.out"
+    });
+
+    gsap.to(".about .text", {
+      scrollTrigger: {
+        trigger: ".about .text",
+        start: "top 85%",
+      },
+      x: 0,
+      opacity: 1,
+      duration: 1.2,
+      ease: "power4.out",
+      delay: 0.3
+    });
+
+    // Scroll animations for "Nos Maisons" section
+    gsap.to(".houses h3", {
+      scrollTrigger: {
+        trigger: ".houses h3",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out"
+    });
+
+    gsap.to(".houses-grid", {
+      scrollTrigger: {
+        trigger: ".houses-grid",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      delay: 0.3
+    });
+
+    // Scroll animations for "Services" section
+    gsap.to(".services h3", {
+      scrollTrigger: {
+        trigger: ".services h3",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out"
+    });
+
+    gsap.to(".services-grid", {
+      scrollTrigger: {
+        trigger: ".services-grid",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      delay: 0.3
+    });
+
+    // Scroll animations for "Contact" section
+    gsap.to(".contact h3", {
+      scrollTrigger: {
+        trigger: ".contact h3",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out"
+    });
+
+    gsap.to(".contact-form", {
+      scrollTrigger: {
+        trigger: ".contact-form",
+        start: "top 85%",
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      delay: 0.3
+    });
+  </script>
+</body>
+</html>
